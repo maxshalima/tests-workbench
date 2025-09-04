@@ -24,6 +24,7 @@ export class AppMenu {
                 label: 'Home',
                 items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }]
             },
+            /*
             {
                 label: 'UI Components',
                 items: [
@@ -43,7 +44,7 @@ export class AppMenu {
                     { label: 'Timeline', icon: 'pi pi-fw pi-calendar', routerLink: ['/uikit/timeline'] },
                     { label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] }
                 ]
-            },
+            },*/
             {
                 label: 'Pages',
                 icon: 'pi pi-fw pi-briefcase',
@@ -89,6 +90,11 @@ export class AppMenu {
                         label: 'Empty',
                         icon: 'pi pi-fw pi-circle-off',
                         routerLink: ['/pages/empty']
+                    },
+                    {
+                        label: 'Warehouses',
+                        icon: 'pi pi-fw pi-circle-off',
+                        routerLink: ['/pages/warehouses']
                     }
                 ]
             },
