@@ -23,7 +23,7 @@ public class WarehouseOperationService {
     public Long create(@NotNull WarehouseOperation operation) {
         operation.setState(WarehouseOperationState.PREPARED);
         operation.setCalculatedCosts(null);
-        operation.setRemaingQuantity(null);
+        operation.setRemainingQuantity(null);
         switch (operation.getType()) {
             case INCOMING -> {
                 operation.setSource(null);

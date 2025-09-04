@@ -98,7 +98,7 @@ public class WarehouseOperation extends AbstractEntity {
     private WarehouseOperation reference;
 
     @Column(name = "remaining_quantity")
-    private BigDecimal remaingQuantity;
+    private BigDecimal remainingQuantity;
 
     /**
      * Себестоимость единицы ТМЦ, при создании входящей операции по умолчанию должно ровняться цене
