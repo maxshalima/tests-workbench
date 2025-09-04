@@ -64,6 +64,10 @@ public class WarehouseOperationBuilder {
         return this;
     }
 
+    public WarehouseOperationBuilder ownerDocumentInfo(String docInfo) {
+        op.setOwnerDocInfo(docInfo);
+        return this;
+    }
     public WarehouseOperation build() {
         validate(op);
         return op;

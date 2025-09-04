@@ -22,21 +22,17 @@ public class WarehouseOperationService {
     @Transactional
     public Long create(@NotNull WarehouseOperation operation) {
         operation.setState(WarehouseOperationState.PREPARED);
+        operation.setCalculatedCosts(null);
+        operation.setRemaingQuantity(null);
         switch (operation.getType()) {
             case INCOMING -> {
-                operation.setCosts(null);
-                operation.setRemaingQuantity(null);
                 operation.setSource(null);
                 operation.setReference(null);
             }
             case OUTGOING -> {
-                operation.setCosts(null);
-                operation.setRemaingQuantity(null);
                 operation.setReference(null);
             }
             case COSTS_ALLOCATION, COSTS_WRITE_OFF -> {
-                operation.setCosts(null);
-                operation.setRemaingQuantity(null);
                 operation.setSource(null);
             }
             default -> {
@@ -48,7 +44,9 @@ public class WarehouseOperationService {
     }
 
     /**
-     * Обработка и применение действия указанного в операции, заполнение необходимых сервисных полей
+     * Обработка и применение действия указанного в операции, заполнение необходимых
+     * сервисных полей
+     * 
      * @param operationId
      */
     @Transactional
@@ -64,6 +62,7 @@ public class WarehouseOperationService {
 
     /**
      * Отмена действия указанного в операции
+     * 
      * @param operationId
      */
     @Transactional
@@ -77,6 +76,4 @@ public class WarehouseOperationService {
         processor.rollback(operation);
     }
 
-
-    
 }

@@ -53,12 +53,16 @@ public class WarehouseOperation extends AbstractEntity {
      * Тип докумета создавшего операцию
      */
     @Column(name = "owner_doc_type", nullable = false, updatable = false)
+    @Enumerated(EnumType.STRING)
     private OperationManagementDocumentType ownerDocType;
     /**
      * ИД документа создавшего операцию
      */
     @Column(name = "owner_doc_id", nullable = false, updatable = false)
     private long ownerDocId;
+
+    @Column(name = "owner_doc_info", updatable = false)
+    private String ownerDocInfo;
 
     /**
      * Кол-во едениц указанного ТМЦ
@@ -93,10 +97,12 @@ public class WarehouseOperation extends AbstractEntity {
     @JoinColumn(name = "reference_op_id", updatable = false)
     private WarehouseOperation reference;
 
+    @Column(name = "remaining_quantity")
     private BigDecimal remaingQuantity;
 
     /**
      * Себестоимость единицы ТМЦ, при создании входящей операции по умолчанию должно ровняться цене
      */
-    private BigDecimal costs;
+    @Column(name = "calculated_costs")
+    private BigDecimal calculatedCosts;
 }
