@@ -1,6 +1,6 @@
 package by.delaidelo.tests.testworks.enums;
 
-public enum WarehouseOperationRecordType {
+public enum WarehouseOperationType {
     INCOMING,
     OUTGOING,
     COSTS_ALLOCATION,
