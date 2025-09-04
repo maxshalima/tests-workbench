@@ -8,5 +8,5 @@ RUN npm run build
 
 FROM nginx:alpine
 EXPOSE 80
-COPY --from=builder /app/dist/sakai-ng/ /usr/share/nginx/html/
+COPY --from=builder /app/dist/sakai-ng/browser/ /usr/share/nginx/html/
 COPY default.conf /etc/nginx/conf.d/default.conf
