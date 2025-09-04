@@ -50,6 +50,7 @@ export class AppMenu {
                 icon: 'pi pi-fw pi-briefcase',
                 routerLink: ['/pages'],
                 items: [
+                    /*
                     {
                         label: 'Landing',
                         icon: 'pi pi-fw pi-globe',
@@ -91,6 +92,7 @@ export class AppMenu {
                         icon: 'pi pi-fw pi-circle-off',
                         routerLink: ['/pages/empty']
                     },
+                    */
                     {
                         label: 'Warehouses',
                         icon: 'pi pi-fw pi-circle-off',
@@ -98,6 +100,7 @@ export class AppMenu {
                     }
                 ]
             },
+            /*
             {
                 label: 'Hierarchy',
                 items: [
@@ -158,6 +161,7 @@ export class AppMenu {
                     }
                 ]
             }
+            */
         ];
     }
 }
