@@ -31,14 +31,7 @@ public class WarehouseItemTypeService {
     }
 
     @Transactional(readOnly = true)
-    public Page<WarehouseItemTypeDto> find(String query, Integer pageSize, Integer pageNumber) {
-        Pageable pageable;
-        if (Objects.nonNull(pageSize) && Objects.nonNull(pageNumber)) {
-            pageable = Pageable.ofSize(pageSize)
-                    .withPage(pageNumber);
-        } else {
-            pageable = Pageable.unpaged();
-        }
+    public Page<WarehouseItemTypeDto> find(String query, Pageable pageable) {
         return repository.findByTitleContainsIgnoreCase(Optional.ofNullable(query).orElse(""), pageable)
                 .map(mapper::toDto);
     }

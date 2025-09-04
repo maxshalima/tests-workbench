@@ -4,6 +4,7 @@ import by.delaidelo.tests.testworks.dto.WarehouseItemTypeDto;
 import by.delaidelo.tests.testworks.services.WarehouseItemTypeService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +19,8 @@ public class WarehouseItemTypeController {
     }
 
     @GetMapping
-    public Page<WarehouseItemTypeDto> find(@RequestParam(defaultValue = "", value = "query") String query,
-                                           @RequestParam(required = false, value = "pageSize") Integer pageSize,
-                                           @RequestParam(required = false, value = "pageNumber") Integer pageNumber) {
-        return service.find(query, pageSize, pageNumber);
+    public Page<WarehouseItemTypeDto> find(@RequestParam(defaultValue = "", value = "query") String query, Pageable pageable) {
+        return service.find(query, pageable);
     }
 
     @GetMapping("/{id:\\d+}")

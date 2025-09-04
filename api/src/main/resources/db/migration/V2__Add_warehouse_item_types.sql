@@ -4,6 +4,6 @@ create table warehouse_item_types (
     title varchar(255) not null,
     units varchar(10),
     gtin varchar(32),
-    "group" varchar(255) not null,
-    subgroup varchar(255)
+    item_group varchar(255) not null,
+    item_subgroup varchar(255)
 );

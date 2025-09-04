@@ -1,7 +1,7 @@
 package by.delaidelo.tests.testworks.services;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,16 +14,15 @@ import jakarta.validation.constraints.NotNull;
 public class WarehousesService {
     private final WarehouseRepositry warehouseRepositry;
     private final WarehouseMapper mapper;
+    
     public WarehousesService(WarehouseRepositry warehouseRepositry, WarehouseMapper mapper) {
         this.warehouseRepositry = warehouseRepositry;
         this.mapper = mapper;
     }
 
-    public List<WarehouseDto> findWarehouses() {
-        return warehouseRepositry.findAll()
-                .stream()
-                .map(mapper::toDto)
-                .toList();
+    public Page<WarehouseDto> findWarehouses(Pageable pageable) {
+        return warehouseRepositry.findAll(pageable)
+                .map(mapper::toDto);
     }
 
     @Transactional

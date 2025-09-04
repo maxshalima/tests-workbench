@@ -25,11 +25,11 @@ public class WarehouseItemType extends AbstractEntity {
     @Column(length = 32)
     private String gtin;
     
-    @Column
+    @Column(name = "item_group", nullable = false)
     @Enumerated(EnumType.STRING)
     private WarehouseItemGroup group;
     
-    @Column
+    @Column(name = "item_subgroup")
     @Enumerated(EnumType.STRING)
     private WarehouseItemSubgroup subgroup;
 }
