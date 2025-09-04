@@ -1,17 +1,17 @@
 package by.delaidelo.tests.testworks.services;
 
-import by.delaidelo.tests.testworks.dao.WarehouseItemTypeRepository;
-import by.delaidelo.tests.testworks.dto.WarehouseItemTypeDto;
-import by.delaidelo.tests.testworks.mappers.WarehouseItemTypeMapper;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.constraints.NotNull;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
-import java.util.Optional;
+import by.delaidelo.tests.testworks.dao.WarehouseItemTypeRepository;
+import by.delaidelo.tests.testworks.dto.WarehouseItemTypeDto;
+import by.delaidelo.tests.testworks.mappers.WarehouseItemTypeMapper;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.constraints.NotNull;
 
 @Service
 public class WarehouseItemTypeService {
