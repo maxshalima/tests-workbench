@@ -21,7 +21,9 @@ public enum WarehouseItemSubgroup {
     FA_MACHINERY_AND_EQUIPMENT(WarehouseItemGroup.FIXED_ASSETS),
     FA_TRANSPORT(WarehouseItemGroup.FIXED_ASSETS),
     FA_TOOLS(WarehouseItemGroup.FIXED_ASSETS),
-    FA_INDUSTRIAL_AND_HOUSEHOLD_EQUIPMENT(WarehouseItemGroup.FIXED_ASSETS);
+    FA_INDUSTRIAL_AND_HOUSEHOLD_EQUIPMENT(WarehouseItemGroup.FIXED_ASSETS),
+    // NCA
+    NCA_PURCHASED(WarehouseItemGroup.NON_CURRENT_ASSETS);
     
     private final WarehouseItemGroup group;
 
