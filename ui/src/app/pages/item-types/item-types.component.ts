@@ -22,7 +22,6 @@ export class ItemTypesComponent {
     constructor(private service: WarehouseItemTypeService) {}
 
     loadItemTypes(event: TableLazyLoadEvent) {
-        console.log(event);
         if (event.first !== undefined) {
             this.first = event.first;
         }
@@ -30,7 +29,6 @@ export class ItemTypesComponent {
             this.pageSize = event.rows;
         }
         const pageNumber = this.first / this.pageSize;
-        console.log(`fetch data for ${pageNumber} ${this.pageSize}`);
         this.service.find(this.query, pageNumber, this.pageSize).subscribe((res) => {
             this.itemTypes = res.content;
             this.totalRows = res.page.totalElements;
