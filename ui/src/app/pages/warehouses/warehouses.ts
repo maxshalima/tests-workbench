@@ -9,27 +9,31 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { WarehouseEditor } from '@/components/warehouse-editor/warehouse-editor';
 import { Button } from "primeng/button";
 import { Tooltip } from "primeng/tooltip";
+import { InputText } from "primeng/inputtext";
 
 @Component({
     selector: 'app-warehouses',
-    imports: [TableModule, Checkbox, FormsModule, Button, Tooltip],
+    imports: [TableModule, Checkbox, FormsModule, Button, Tooltip, InputText],
     templateUrl: './warehouses.html',
     styleUrl: './warehouses.scss',
     providers: [DialogService]
 })
 export class Warehouses implements OnInit {
     data: PageModel<Warehouse> | undefined;
+    query: string;
     constructor(
         private service: WarehouseService,
         private dialogService: DialogService
-    ) {}
+    ) {
+        this.query = '';
+    }
 
     ngOnInit(): void {
         this.loadWarehouses();
     }
 
     loadWarehouses() {
-        this.service.find().subscribe((model) => {
+        this.service.find(this.query).subscribe((model) => {
             this.data = model;
         });
     }

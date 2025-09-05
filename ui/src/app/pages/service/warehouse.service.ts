@@ -20,16 +20,20 @@ export class WarehouseService extends AbstractCrudService<Warehouse> {
         return this._subUrl;
     }
 
-    find(page?: number, size?: number): Observable<PageModel<Warehouse>> {
+    find(query = '', page?: number, size?: number): Observable<PageModel<Warehouse>> {
         let params = new HttpParams();
+        if (query) {
+            params = params.set('query', query);
+        }
         if (page) {
-            params.set('page', page);
+            params = params.append('page', page);
         }
         if (size) {
-            params.set('size', size);
+            params = params.append('size', size);
         } else {
-            params.set('size', 1000);
+            params = params.append('size', 1000);
         }
+
 
         return this.http.get<PageModel<Warehouse>>(this._subUrl, {
             params
