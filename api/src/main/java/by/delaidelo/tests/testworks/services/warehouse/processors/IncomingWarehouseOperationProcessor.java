@@ -15,14 +15,20 @@ public class IncomingWarehouseOperationProcessor extends AbstractWarehouseOperat
 
     @Override
     protected void processMethod(WarehouseOperation operation) {
-        // TODO Auto-generated method stub
-        
+        operation.setRemainingQuantity(operation.getQuantity());
+        operation.setCalculatedCosts(operation.getPrice());
     }
 
     @Override
     protected void rollbackMethod(WarehouseOperation operation) {
-        // TODO Auto-generated method stub
-        
+        final var outgoingOperations = opres.findBySourceId(operation.getId());
+        final var referencies = opres.findByReferenceId(operation.getId());
+        if(outgoingOperations.size()>0 || referencies.size()>0) {
+            throw new IllegalStateException("cannot rollback used operation");
+        }
+
+        operation.setCalculatedCosts(null);
+        operation.setRemainingQuantity(null);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package by.delaidelo.tests.testworks.utils;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import by.delaidelo.tests.testworks.domain.Warehouse;
@@ -13,6 +14,10 @@ import jakarta.validation.ValidationException;
 public class WarehouseOperationBuilder {
 
     private WarehouseOperation op = new WarehouseOperation();
+
+    private WarehouseOperationBuilder() {
+        
+    }
 
     public WarehouseOperationBuilder type(WarehouseOperationType type) {
         op.setType(type);
@@ -68,6 +73,10 @@ public class WarehouseOperationBuilder {
         op.setOwnerDocInfo(docInfo);
         return this;
     }
+    public WarehouseOperationBuilder operationDate(LocalDate operationDate) {
+        op.setOperationDate(operationDate);
+        return this;
+    }
     public WarehouseOperation build() {
         validate(op);
         return op;
@@ -78,6 +87,8 @@ public class WarehouseOperationBuilder {
             throw new ValidationException("type is required");
         if (Objects.isNull(op.getWarehouse()))
             throw new ValidationException("warehouse is required");
+        if (Objects.isNull(op.getOperationDate()))
+            throw new ValidationException("operationDate is required");
         if (Objects.isNull(op.getItemType()))
             throw new ValidationException();
         if (Objects.isNull(op.getQuantity()) || op.getQuantity().compareTo(BigDecimal.ZERO) == 0)
@@ -89,4 +100,7 @@ public class WarehouseOperationBuilder {
             throw new ValidationException();
     }
 
+    public static WarehouseOperationBuilder builder() {
+        return new WarehouseOperationBuilder();
+    }
 }

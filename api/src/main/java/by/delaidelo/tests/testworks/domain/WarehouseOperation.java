@@ -1,6 +1,7 @@
 package by.delaidelo.tests.testworks.domain;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import by.delaidelo.tests.testworks.enums.OperationManagementDocumentType;
 import by.delaidelo.tests.testworks.enums.WarehouseOperationState;
@@ -63,6 +64,9 @@ public class WarehouseOperation extends AbstractEntity {
 
     @Column(name = "owner_doc_info", updatable = false)
     private String ownerDocInfo;
+
+    @Column(name = "operation_date", nullable = false, updatable = false)
+    private LocalDate operationDate;
 
     /**
      * Кол-во едениц указанного ТМЦ

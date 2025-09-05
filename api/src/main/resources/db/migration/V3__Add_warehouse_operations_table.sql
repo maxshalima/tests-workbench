@@ -8,6 +8,7 @@ create table warehouse_operations (
     owner_doc_type varchar(255) not null,
     owner_doc_id bigint not null,
     owner_doc_info text,
+    operation_date date not null,
     quantity numeric(24,8) not null default 0.0,
     price numeric(21,5) not null default 0.0,
     total_sum numeric(18,2) not null default 0.0,
