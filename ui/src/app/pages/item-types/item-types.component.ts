@@ -1,11 +1,10 @@
 import { WarehouseItemTypeService } from './../service/warehouse-item-type.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TableLazyLoadEvent, TableModule, TablePageEvent } from 'primeng/table';
-import { PageModel } from 'src/interfaces/page-model';
 import { WarehouseItemType } from 'src/interfaces/warehouse-item-type';
-import { Button } from "primeng/button";
+import { Button } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
-import { InputText } from "primeng/inputtext";
+import { InputText } from 'primeng/inputtext';
 
 @Component({
     selector: 'app-item-types',
@@ -22,9 +21,9 @@ export class ItemTypesComponent {
     totalRows!: number;
     constructor(private service: WarehouseItemTypeService) {}
 
-    loadItemTypes(event:TableLazyLoadEvent) {
+    loadItemTypes(event: TableLazyLoadEvent) {
         console.log(event);
-        if (event.first!==undefined) {
+        if (event.first !== undefined) {
             this.first = event.first;
         }
         if (event.rows != null && event.rows !== 0) {
@@ -32,23 +31,19 @@ export class ItemTypesComponent {
         }
         const pageNumber = this.first / this.pageSize;
         console.log(`fetch data for ${pageNumber} ${this.pageSize}`);
-        this.service.find(this.query, pageNumber, this.pageSize).subscribe((res)=> {
+        this.service.find(this.query, pageNumber, this.pageSize).subscribe((res) => {
             this.itemTypes = res.content;
             this.totalRows = res.page.totalElements;
-            if (event.forceUpdate)
-                event.forceUpdate();
+            if (event.forceUpdate) event.forceUpdate();
         });
     }
 
-    edit(id?:number) {
+    edit(id?: number) {}
 
-    }
-
-    delete(id:number) {
-        this.service.delete(id).subscribe(()=>{
-            let event = {
-            }
+    delete(id: number) {
+        this.service.delete(id).subscribe(() => {
+            let event = {};
             this.loadItemTypes(event);
-        })
+        });
     }
 }
