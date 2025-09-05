@@ -59,7 +59,7 @@ export class ContractsComponent {
                 },
                 data: {
                     contractId
-                }
+                },
             })
             .onClose.subscribe((res) => {
                 if (res) {

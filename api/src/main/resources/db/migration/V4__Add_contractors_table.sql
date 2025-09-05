@@ -7,7 +7,7 @@ create table contractors(
     address text,
     email varchar(255),
     phone varchar(255),
-    contract_person varchar(255) not null
+    contact_person varchar(255) not null
 );
 
 create table contracts (

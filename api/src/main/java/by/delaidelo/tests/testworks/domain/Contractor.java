@@ -24,5 +24,5 @@ public class Contractor extends AbstractEntity {
     @Column
     private String email;
     @Column
-    private String contractPerson;
+    private String contactPerson;
 }
