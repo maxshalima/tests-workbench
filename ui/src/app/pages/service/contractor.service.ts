@@ -25,10 +25,10 @@ export class ContractorService extends AbstractCrudService<Contractor> {
         if (query) {
             params = params.set('query', query);
         }
-        if (page) {
+        if (page!==undefined) {
             params = params.append('page', page);
         }
-        if (size) {
+        if (size!==undefined) {
             params = params.append('size', size);
         } else {
             params = params.append('size', 1000);
