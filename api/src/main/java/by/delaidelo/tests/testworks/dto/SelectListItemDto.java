@@ -1,4 +1,6 @@
 package by.delaidelo.tests.testworks.dto;
 
-public record SelectListItemDto(Long id, String title) {}
+import jakarta.validation.constraints.NotNull;
+
+public record SelectListItemDto(@NotNull Long id, String title) {}
 

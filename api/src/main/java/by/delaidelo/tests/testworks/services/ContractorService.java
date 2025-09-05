@@ -35,9 +35,9 @@ public class ContractorService {
 
     @Transactional(readOnly = true)
     public List<SelectListItemDto> findSimple(String query) {
-        return contractorRepository.findByQuery(query, Pageable.unpaged())
-            .map(entityMapper::fromContractor)
-            .toList();
+        return contractorRepository.findByQuery(query, Pageable.ofSize(20))
+                .map(entityMapper::fromContractor)
+                .toList();
     }
 
     @Transactional
@@ -57,5 +57,10 @@ public class ContractorService {
     @Transactional
     public void delete(@NotNull Long id) {
         contractorRepository.deleteById(id);
+    }
+
+    public ContractorDto findById(Long id) {
+        final var c = contractorRepository.findById(id).orElseThrow();
+        return contractorMapper.toDto(c);
     }
 }
