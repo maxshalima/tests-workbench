@@ -14,7 +14,7 @@ export class ContractService extends AbstractCrudService<Contract> {
     private readonly _subUrl: string;
     constructor(protected override http: HttpClient) {
         super(http);
-        this._subUrl = environment.apiBaseUrl + '/contractors';
+        this._subUrl = environment.apiBaseUrl + '/contracts';
     }
     protected override entityUrl(): string {
         return this._subUrl;
