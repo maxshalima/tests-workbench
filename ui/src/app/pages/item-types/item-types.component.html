@@ -3,10 +3,13 @@
     @if (data) {
         <p-table [value]="data.content">
             <ng-template #caption>
-                <div class="flex flex-col sm:flex-row">
-                <input pInputText class="flex" pInputText [(ngModel)]="query" placeholder="Поиск"
-                    (ngModelChange)="loadItemTypes()">
-                <p-button icon="pi pi-plus" (onClick)="edit()" label="Добавить"></p-button>
+                <div class="flex gap-4">
+                    <span class="grow flex">
+                        <input class="grow" pInputText [(ngModel)]="query" placeholder="Поиск" (ngModelChange)="loadItemTypes()">
+                    </span>
+                    <span>
+                        <p-button icon="pi pi-plus" (onClick)="edit()" label="Добавить"></p-button>
+                    </span>
                 </div>
             </ng-template>
             <ng-template #header>
