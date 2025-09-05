@@ -1,4 +1,4 @@
-package by.delaidelo.tests.testworks.services;
+package by.delaidelo.tests.testworks.services.warehouse;
 
 import java.util.List;
 

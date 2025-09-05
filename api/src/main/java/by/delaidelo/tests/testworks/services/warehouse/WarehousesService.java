@@ -1,4 +1,4 @@
-package by.delaidelo.tests.testworks.services;
+package by.delaidelo.tests.testworks.services.warehouse;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

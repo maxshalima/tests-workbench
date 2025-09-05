@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import by.delaidelo.tests.testworks.dto.WarehouseDto;
-import by.delaidelo.tests.testworks.services.WarehousesService;
+import by.delaidelo.tests.testworks.services.warehouse.WarehousesService;
 import jakarta.validation.Valid;
 
 @RestController

@@ -1,7 +1,7 @@
 package by.delaidelo.tests.testworks.mvc.controllers;
 
 import by.delaidelo.tests.testworks.dto.WarehouseItemTypeDto;
-import by.delaidelo.tests.testworks.services.WarehouseItemTypeService;
+import by.delaidelo.tests.testworks.services.warehouse.WarehouseItemTypeService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
