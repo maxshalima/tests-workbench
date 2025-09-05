@@ -59,6 +59,7 @@ public class ContractorService {
         contractorRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public ContractorDto findById(Long id) {
         final var c = contractorRepository.findById(id).orElseThrow();
         return contractorMapper.toDto(c);

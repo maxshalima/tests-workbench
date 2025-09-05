@@ -8,66 +8,67 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import by.delaidelo.tests.testworks.dto.ContractorDto;
+import by.delaidelo.tests.testworks.dto.ContractDto;
 import by.delaidelo.tests.testworks.dto.SelectListItemDto;
-import by.delaidelo.tests.testworks.services.ContractorService;
+import by.delaidelo.tests.testworks.services.ContractService;
 import jakarta.validation.Valid;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-
-
 @RestController
-@RequestMapping("/contractors")
+@RequestMapping("/contracts")
 @CrossOrigin("*")
-public class ContractorController {
-    private final ContractorService service;
+public class ContractController {
+    private final ContractService service;
 
-    public ContractorController(ContractorService contractorService) {
-        this.service = contractorService;
+    public ContractController(ContractService service) {
+        this.service = service;
     }
 
     @GetMapping
-    public Page<ContractorDto> find(@RequestParam(defaultValue = "", value = "query") String query, Pageable pageable) {
-        return service.find(query, pageable);
+    public Page<ContractDto> find(
+            @RequestParam(required = false) Long contractorId, @RequestParam(defaultValue = "") String query,
+            Pageable pageable) {
+        return service.find(contractorId, query, pageable);
     }
 
     /**
      * Return no more than 20 records
+     * 
      * @param query
      * @return
      */
     @GetMapping("/simple")
-    public List<SelectListItemDto> findSimple(@RequestParam(defaultValue = "") String query) {
-        return service.findSimple(query);
+    public List<SelectListItemDto> findSimple(@RequestParam Long contractorId,
+            @RequestParam(defaultValue = "") String query) {
+        return service.findSimple(contractorId, query);
     }
 
     @PostMapping
-    public ResponseEntity<Long> create(@RequestBody @Valid ContractorDto dto) {
+    public ResponseEntity<Long> create(@RequestBody @Valid ContractDto dto) {
         final var id = service.create(dto);
         return ResponseEntity.ok(id);
     }
 
     @PutMapping("/{id:\\d+}")
-    public void update(@PathVariable Long id, @RequestBody ContractorDto dto) {
+    public void update(@PathVariable Long id, @RequestBody ContractDto dto) {
         service.update(id, dto);
     }
-    
+
     @DeleteMapping("/{id:\\d+}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
-    
+
     @GetMapping("/{id:\\d+}")
-    public ContractorDto findById(@PathVariable Long id) {
+    public ContractDto findById(@PathVariable Long id) {
         return service.findById(id);
     }
-    
+
 }

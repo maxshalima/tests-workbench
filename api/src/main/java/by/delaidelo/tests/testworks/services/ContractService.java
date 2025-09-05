@@ -59,4 +59,10 @@ public class ContractService {
     public void delete(@NotNull Long contractId) {
         contractRepository.deleteById(contractId);
     }
+
+    @Transactional(readOnly = true)
+    public ContractDto findById(Long id) {
+        final var contract = contractRepository.findById(contractId).orElseThrow();
+        return contractMapper.toDto(contract);
+    }
 }
