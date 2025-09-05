@@ -62,7 +62,7 @@ public class ContractService {
 
     @Transactional(readOnly = true)
     public ContractDto findById(Long id) {
-        final var contract = contractRepository.findById(contractId).orElseThrow();
+        final var contract = contractRepository.findById(id).orElseThrow();
         return contractMapper.toDto(contract);
     }
 }
