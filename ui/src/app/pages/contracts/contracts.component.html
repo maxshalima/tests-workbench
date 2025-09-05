@@ -10,9 +10,9 @@
         (onLazyLoad)="loadData($event)">
         <ng-template #caption>
             <div class="flex gap-4">
-                <span class="grow flex">
-                    <input class="grow" pInputText [(ngModel)]="query" placeholder="Поиск"
-                        (ngModelChange)="loadData({})">
+                <span class="grow">
+                    <input pInputText [(ngModel)]="query" placeholder="Поиск"
+                        (ngModelChange)="loadData({})" fluid>
                 </span>
                 <span class="grow">
                     <p-autocomplete [forceSelection]="true" [(ngModel)]="contractor" [suggestions]="contractors" (onSelect)="loadData({})" showClear="true"
@@ -20,7 +20,6 @@
                         (onClear)="clearSelection()"
                         >
                     </p-autocomplete>
-                    <!-- <p-button (onClick)="clearSelection()" icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" ></p-button> -->
                 </span>
                 <span>
                     <p-button icon="pi pi-plus" (onClick)="edit()" label="Добавить"></p-button>
