@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import by.delaidelo.tests.testworks.dto.WarehouseDto;
@@ -32,8 +33,8 @@ public class WarehouseController {
         return service.findById(id);
     }
     @GetMapping
-    public Page<WarehouseDto> find(Pageable pageable) {
-        return service.findWarehouses(pageable);
+    public Page<WarehouseDto> find(@RequestParam(required = false, defaultValue = "") String query, Pageable pageable) {
+        return service.findWarehouses(query, pageable);
     }
 
     @PostMapping

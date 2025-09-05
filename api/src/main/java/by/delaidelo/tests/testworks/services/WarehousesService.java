@@ -20,8 +20,8 @@ public class WarehousesService {
         this.mapper = mapper;
     }
 
-    public Page<WarehouseDto> findWarehouses(Pageable pageable) {
-        return warehouseRepositry.findAll(pageable)
+    public Page<WarehouseDto> findWarehouses(String query, Pageable pageable) {
+        return warehouseRepositry.findByTitleContainingIgnoreCase(query, pageable)
                 .map(mapper::toDto);
     }
 
