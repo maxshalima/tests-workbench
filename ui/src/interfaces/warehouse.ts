@@ -1,7 +1,7 @@
 import { BaseDto } from './base-dto';
 
 export interface Warehouse extends BaseDto {
-    title: string|undefined;
+    title: string;
     address: string|undefined;
-    enabled: boolean|undefined;
+    enabled: boolean;
 }

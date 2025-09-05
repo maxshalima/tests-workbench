@@ -2,9 +2,9 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AbstractCrudService } from 'src/services/AbstractCrudService';
-import { Warehouse } from 'src/interfaces/Warehouse';
+import { Warehouse } from 'src/interfaces/warehouse';
 import { Observable } from 'rxjs';
-import { PageModel } from 'src/interfaces/PageModel';
+import { PageModel } from 'src/interfaces/page-model';
 @Injectable({
     providedIn: 'root'
 })

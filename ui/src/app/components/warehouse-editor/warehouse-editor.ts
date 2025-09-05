@@ -2,7 +2,7 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { WarehouseService } from '@/pages/service/warehouse.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Warehouse } from 'src/interfaces/Warehouse';
+import { Warehouse } from 'src/interfaces/warehouse';
 import { FloatLabel } from "primeng/floatlabel";
 import { InputText } from "primeng/inputtext";
 import { Button } from "primeng/button";

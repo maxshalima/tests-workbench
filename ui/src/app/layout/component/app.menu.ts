@@ -94,9 +94,24 @@ export class AppMenu {
                     },
                     */
                     {
-                        label: 'Warehouses',
-                        icon: 'pi pi-fw pi-circle-off',
+                        label: 'Склады',
+                        icon: 'pi pi-fw pi-truck',
                         routerLink: ['/pages/warehouses']
+                    },
+                    {
+                        label: 'Номенклатура',
+                        icon: 'pi pi-fw pi-list',
+                        routerLink: ['/pages/item-types']
+                    },
+                    {
+                        label: 'Контрагенты',
+                        icon: 'pi pi-fw pi-users',
+                        routerLink: ['/pages/contractors']
+                    },
+                    {
+                        label: 'Договора',
+                        icon: 'pi pi-fw pi-credit-card',
+                        routerLink: ['/pages/contracts']
                     }
                 ]
             },

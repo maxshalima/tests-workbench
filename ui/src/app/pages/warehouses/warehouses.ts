@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WarehouseService } from '../service/warehouse.service';
-import { PageModel } from 'src/interfaces/PageModel';
-import { Warehouse } from 'src/interfaces/Warehouse';
+import { PageModel } from 'src/interfaces/page-model';
+import { Warehouse } from 'src/interfaces/warehouse';
 import { TableModule } from 'primeng/table';
 import { Checkbox } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
