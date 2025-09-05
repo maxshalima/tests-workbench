@@ -16,9 +16,12 @@
                 </span>
                 <span class="grow">
                     <p-autocomplete [forceSelection]="true" [(ngModel)]="contractor" [suggestions]="contractors" (onSelect)="loadData({})" showClear="true"
-                        (completeMethod)="completeContractors($event)" fluid placeholder="Выбирите контрагента"
+                        (completeMethod)="completeContractors($event)" fluid placeholder="Выбирите контрагента" optionLabel="title"
                         (onClear)="clearSelection()"
                         >
+                        <ng-template #item let-item>
+                            {{item.title}}
+                        </ng-template>
                     </p-autocomplete>
                 </span>
                 <span>
