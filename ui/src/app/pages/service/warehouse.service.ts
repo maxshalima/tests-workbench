@@ -35,4 +35,8 @@ export class WarehouseService extends AbstractCrudService<Warehouse> {
             params
         });
     }
+
+    switchWarehouse(warehouseId: number) {
+        return this.http.post(`${this._subUrl}/${warehouseId}/switch`, {});
+    }
 }

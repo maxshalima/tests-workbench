@@ -50,4 +50,10 @@ public class WarehousesService {
         final var warehouse = warehouseRepositry.findById(id).orElseThrow();
         warehouseRepositry.delete(warehouse);
     }
+
+    public WarehouseDto findById(Long id) {
+        return warehouseRepositry.findById(id)
+            .map(mapper::toDto)
+            .orElseThrow();
+    }
 }

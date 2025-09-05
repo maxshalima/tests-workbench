@@ -27,6 +27,10 @@ public class WarehouseController {
         this.service = service;
     }
 
+    @GetMapping("/{id:\\d+}")
+    public WarehouseDto findById(@PathVariable("id") Long id) {
+        return service.findById(id);
+    }
     @GetMapping
     public Page<WarehouseDto> find(Pageable pageable) {
         return service.findWarehouses(pageable);

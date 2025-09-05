@@ -2,6 +2,11 @@
         <div class="font-semibold text-xl mb-4">Warehouses</div>
         @if (data) {
             <p-table [value]="data.content">
+                <ng-template #caption>
+                    <div class="justify-end">
+                        <p-button icon="pi pi-plus" (onClick)="edit()" label="Добавить"></p-button>
+                    </div>
+                </ng-template>
                 <ng-template #header>
                     <tr>
                         <th>#</th>
@@ -19,7 +24,11 @@
                         <td>
                             <p-checkbox [binary]="true" [(ngModel)]="w.enabled" [readonly]="true"></p-checkbox>
                         </td>
-                        <td></td>
+                        <td>
+                            <p-button icon="pi pi-pencil" (onClick)="edit(w.id)"></p-button>
+                            <p-button icon="pi pi-circle-on" (onClick)="switch(w.id)" [hidden]="w.enabled" pTooltip="Активировать"></p-button>
+                            <p-button icon="pi pi-circle-off" (onClick)="switch(w.id)" [hidden]="!w.enabled" pTooltip="Деактивировать"></p-button>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
