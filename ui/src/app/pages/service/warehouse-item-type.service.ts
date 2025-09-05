@@ -24,10 +24,10 @@ export class WarehouseItemTypeService extends AbstractCrudService<WarehouseItemT
         if(query) {
             params = params.append('query', query);
         }
-        if (page) {
+        if (page!==undefined) {
             params = params.append('page', page);
         }
-        if (size) {
+        if (size!==undefined) {
             params = params.append('size', size);
         } else {
             params = params.append('size', 100);
