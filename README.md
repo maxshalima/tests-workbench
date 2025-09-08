@@ -10,7 +10,7 @@ cd docker
 docker compose build
 docker compose up
 ```
-Открыть брауер по ссылки [http://localhost](http://localhost])
+Открыть брауер по ссылке [http://localhost](http://localhost])
 
 ## Разработка
 Для сборки проекта вне контейнера понадобятся Java 21 и NodeJS 22.19.0.
