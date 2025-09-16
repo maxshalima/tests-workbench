@@ -46,7 +46,7 @@ export class IncomingDocuments implements OnInit {
 
     edit(incomingDocumentId?: number) {
         this.dialogService.open(IncomingDocumentEditor, {
-            width: '50vw',
+            width: '100vw',
             modal:true,
             breakpoints: {
                 '960px': '75vw',

@@ -19,7 +19,7 @@ public class WarehouseEntityMapper {
     public SelectListItemDto fromWarehouse(Warehouse warehouse) {
         if (Objects.isNull(warehouse))
             return null;
-        return new SelectListItemDto(warehouse.getId(), warehouse.getTitle()+ "- " + warehouse.getAddress());
+        return new SelectListItemDto(warehouse.getId(), "\""+warehouse.getTitle()+"\""+ " " + warehouse.getAddress());
     }
 
     public Warehouse toWarehouse(SelectListItemDto dto) {

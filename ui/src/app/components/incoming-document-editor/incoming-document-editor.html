@@ -1,5 +1,5 @@
 <form [formGroup]="formGroup" (ngSubmit)="save()">
-    <div class="p-dialog">
+    <div class="p-dialog" >
         <div class="p-dialog-header">
             <div class="text-xl font-bold">
             @if (incomingDocumentId) {
@@ -9,21 +9,35 @@
             }
             </div>
         </div>
-        <div class="p-dialog-content">
+        <div class="p-dialog-content" [style]="{ height: '500px' }">
             <div class="flex flex-col gap-6 w-full sm:w-auto">
                 <div class="flex flex-col sm:flex-row sm:items-center gap-6">
+
                     <div class="flex-auto flex">
                         <p-floatLabel>
-                            <input class="flex" id="title" pInputText formControlName="title">
-                            <label for="title">Наименование</label>
+                            <p-datePicker formControlName="documentDate" id="documentDate"></p-datePicker>
+                            <label for="documentDate">Дата документа</label>
                         </p-floatLabel>
                     </div>
+
                     <div class="flex-auto flex">
                         <p-floatLabel>
-                            <input class="flex" id="address" pInputText formControlName="address">
-                            <label for="address">Адрес</label>
+                            <input class="flex" id="documentNumber" pInputText formControlName="documentNumber">
+                            <label for="documentNumber">Номер документа</label>
                         </p-floatLabel>
                     </div>
+
+                    <div class="flex-auto">
+                        <p-autocomplete [forceSelection]="true" formControlName="contractor" [suggestions]="contractors" showClear="true"
+                                        (completeMethod)="completeContractors($event)" fluid placeholder="Выбирите контрагента"
+                                        (onClear)="clearSelection()" optionLabel="title"
+                        >
+                            <ng-template let-item #item>
+                                {{item.title}}
+                            </ng-template>
+                        </p-autocomplete>
+                    </div>
+
                 </div>
             </div>
         </div>
