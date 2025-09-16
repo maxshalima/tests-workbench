@@ -13,23 +13,20 @@
             <div class="flex flex-col gap-6 w-full sm:w-auto">
                 <div class="flex flex-col sm:flex-row sm:items-center gap-6">
 
-                    <div class="flex-auto flex">
-                        <p-floatLabel>
+                    <div class="flex-auto flex flex-col">
+                            <label for="documentDate" class="mb-1 text-left">Дата документа</label>
                             <p-datePicker formControlName="documentDate" id="documentDate"></p-datePicker>
-                            <label for="documentDate">Дата документа</label>
-                        </p-floatLabel>
                     </div>
 
-                    <div class="flex-auto flex">
-                        <p-floatLabel>
-                            <input class="flex" id="documentNumber" pInputText formControlName="documentNumber">
-                            <label for="documentNumber">Номер документа</label>
-                        </p-floatLabel>
+                    <div class="flex-auto  flex flex-col">
+                        <label for="documentNumber" class="mb-1 text-left" >Номер документа</label>
+                        <input class="flex" id="documentNumber" pInputText formControlName="documentNumber">
                     </div>
 
-                    <div class="flex-auto">
+                    <div class="flex-auto flex flex-col">
+                        <label for="contractorId" class="mb-1 text-left" >Контрагент</label>
                         <p-autocomplete [forceSelection]="true" formControlName="contractor" [suggestions]="contractors" showClear="true"
-                                        (completeMethod)="completeContractors($event)" fluid placeholder="Выберите контрагента"
+                                        (completeMethod)="completeContractors($event)" id="contractorId" fluid placeholder="Выберите контрагента"
                                         (onClear)="clearSelection()" optionLabel="title"
                         >
                             <ng-template let-item #item>
@@ -38,15 +35,25 @@
                         </p-autocomplete>
                     </div>
 
-                    <div class="flex-auto">
+                    <div class="flex-auto flex flex-col">
+                        <label for="contractId" class="mb-1 text-left" >Договор</label>
                         <p-autocomplete [forceSelection]="true" formControlName="contract" [suggestions]="contracts" showClear="true"
                                         (completeMethod)="completeContracts($event)" fluid placeholder="Выберите договор"
-                                        (onClear)="clearContractSelection()" optionLabel="title"
+                                        (onClear)="clearContractSelection()" optionLabel="title"  id="contractId"
                         >
                             <ng-template let-item #item>
                                 {{item.title}}
                             </ng-template>
                         </p-autocomplete>
+                    </div>
+
+                    <div class="flex-auto flex flex-col">
+                        <label for="warehouseId" class="mb-1 text-left">Склад</label>
+                        <input id="warehouseId"
+                            pInputText
+                            [value]="formGroup.get('warehouse')?.value?.title"
+                            readonly
+                        />
                     </div>
 
                 </div>

@@ -24,7 +24,7 @@ export class IncomingDocumentEditor implements OnInit {
     formGroup: FormGroup;
     contractors!: SelectListItemDto[];
     contracts!: SelectListItemDto[];
-
+    warehouse!: SelectListItemDto;
     constructor(
         private service: IncomingDocumentsService,
         private ref: DynamicDialogRef,
@@ -38,16 +38,18 @@ export class IncomingDocumentEditor implements OnInit {
             contract: [undefined, Validators.required],
             documentNumber: [undefined, Validators.required],
             documentDate: [undefined, Validators.required],
-            warehouse: [undefined],
-            description: [undefined]
+            warehouse: [undefined]
         });
     }
 
     ngOnInit(): void {
         this.incomingDocumentId = this.config.data.incomingDocumentId;
         if (this.incomingDocumentId) {
-            this.service.findById(this.incomingDocumentId).subscribe((w) => {
-                this.formGroup.patchValue(w);
+            this.service.findById(this.incomingDocumentId).subscribe((incomingDocumentData) => {
+                if (incomingDocumentData.documentDate) {
+                    incomingDocumentData.documentDate = new Date(incomingDocumentData.documentDate); // Convert string to Date
+                }
+                this.formGroup.patchValue(incomingDocumentData);
             });
         }
     }

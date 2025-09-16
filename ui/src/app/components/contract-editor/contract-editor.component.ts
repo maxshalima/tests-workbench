@@ -25,7 +25,7 @@ export class ContractEditorComponent implements OnInit {
     constructor(
         private config: DynamicDialogConfig,
         private ref: DynamicDialogRef,
-        private service: ContractService,
+        private contractService: ContractService,
         private contractorService: ContractorService,
         private fb: FormBuilder
     ) {
@@ -40,7 +40,10 @@ export class ContractEditorComponent implements OnInit {
     ngOnInit() {
         this.contractId = this.config.data.contractId;
         if(this.contractId) {
-            this.service.findById(this.contractId).subscribe(c=>{
+            this.contractService.findById(this.contractId).subscribe(c=>{
+                if (c.contractDate) {
+                    c.contractDate = new Date(c.contractDate); // Convert string to Date
+                }
                 this.formGroup.patchValue(c);
             });
         }
@@ -49,11 +52,11 @@ export class ContractEditorComponent implements OnInit {
     save() {
         const c = this.formGroup.value as Contract;
         if (this.contractId) {
-            this.service.update(this.contractId, c).subscribe(()=>{
+            this.contractService.update(this.contractId, c).subscribe(()=>{
                 this.ref.close(true);
             });
         } else {
-            this.service.create(c).subscribe(()=>{
+            this.contractService.create(c).subscribe(()=>{
                 this.ref.close(true);
             });
         }
