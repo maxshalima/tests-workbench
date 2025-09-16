@@ -21,7 +21,7 @@ public class IncomingDocumentsService {
     }
 
     public Page<IncomingDocumentDto> findIncomingDocuments(String query, Pageable pageable) {
-        return incomingDocumentRepository.findByTitleContainingIgnoreCase(query, pageable)
+        return incomingDocumentRepository.findByDocumentNumberContainingIgnoreCase(query, pageable)
                 .map(mapper::toDto);
     }
 
@@ -40,10 +40,10 @@ public class IncomingDocumentsService {
     }
 
 
-    public void switchState(@NotNull Long id) {
-        final var incomingDocument = incomingDocumentRepository.findById(id).orElseThrow();
-        incomingDocument.setEnabled(!incomingDocument.isEnabled());
-    }
+//    public void switchState(@NotNull Long id) {
+//        final var incomingDocument = incomingDocumentRepository.findById(id).orElseThrow();
+//        incomingDocument.setEnabled(!incomingDocument.isEnabled());
+//    }
 
 
     public void delete(@NotNull Long id) {

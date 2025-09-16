@@ -1,22 +1,32 @@
 package by.delaidelo.tests.testworks.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "incoming_documents")
 public class IncomingDocument extends AbstractEntity {
-    @Column
-    private String title;
 
     @Column
-    private String address;
+    private LocalDate documentDate;
 
-    @Column(name = "is_enabled", nullable = false)
-    private boolean enabled;
+    @Column
+    private String documentNumber;
+
+    @ManyToOne
+    @JoinColumn
+    private Contractor contractor;
+
+    @ManyToOne
+    @JoinColumn
+    private Contract contract;
+
+    @ManyToOne
+    @JoinColumn
+    private Warehouse warehouse;
 }

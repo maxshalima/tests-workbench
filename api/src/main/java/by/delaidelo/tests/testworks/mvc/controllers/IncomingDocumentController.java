@@ -38,11 +38,6 @@ public class IncomingDocumentController {
         service.update(id, dto);
     }
 
-    @PostMapping("/{id:\\d+}/switch")
-    public void switchState(@PathVariable("id") Long id) {
-        service.switchState(id);
-    }
-
     @DeleteMapping("/{id:\\d+}")
     public void delete(@PathVariable("id") Long id) {
         service.delete(id);
