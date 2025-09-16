@@ -112,7 +112,13 @@ export class AppMenu {
                         label: 'Договора',
                         icon: 'pi pi-fw pi-credit-card',
                         routerLink: ['/pages/contracts']
+                    },
+                    {
+                        label: 'Приходные документы',
+                        icon: 'pi pi-fw pi-fw pi-file',
+                        routerLink: ['/pages/incoming-documents']
                     }
+
                 ]
             },
             /*

@@ -21,6 +21,9 @@ target/
 *.launch
 .settings/
 *.sublime-workspace
+*.iml
+
+
 
 ### NetBeans ###
 /nbproject/private/
