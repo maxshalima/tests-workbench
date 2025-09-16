@@ -29,8 +29,19 @@
 
                     <div class="flex-auto">
                         <p-autocomplete [forceSelection]="true" formControlName="contractor" [suggestions]="contractors" showClear="true"
-                                        (completeMethod)="completeContractors($event)" fluid placeholder="Выбирите контрагента"
+                                        (completeMethod)="completeContractors($event)" fluid placeholder="Выберите контрагента"
                                         (onClear)="clearSelection()" optionLabel="title"
+                        >
+                            <ng-template let-item #item>
+                                {{item.title}}
+                            </ng-template>
+                        </p-autocomplete>
+                    </div>
+
+                    <div class="flex-auto">
+                        <p-autocomplete [forceSelection]="true" formControlName="contract" [suggestions]="contracts" showClear="true"
+                                        (completeMethod)="completeContracts($event)" fluid placeholder="Выберите договор"
+                                        (onClear)="clearContractSelection()" optionLabel="title"
                         >
                             <ng-template let-item #item>
                                 {{item.title}}

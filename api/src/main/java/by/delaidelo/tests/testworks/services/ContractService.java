@@ -1,18 +1,17 @@
 package by.delaidelo.tests.testworks.services;
 
-import java.util.List;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import by.delaidelo.tests.testworks.dao.ContractRepository;
 import by.delaidelo.tests.testworks.dto.ContractDto;
 import by.delaidelo.tests.testworks.dto.SelectListItemDto;
 import by.delaidelo.tests.testworks.mappers.ContractEntityMapper;
 import by.delaidelo.tests.testworks.mappers.ContractMapper;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ContractService {

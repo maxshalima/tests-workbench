@@ -77,7 +77,16 @@ export class IncomingDocumentEditor implements OnInit {
         });
     }
 
+    completeContracts(event: AutoCompleteCompleteEvent) {
+        this.contractService.findSimple(event.query).subscribe(res=>{
+            this.contracts = res;
+        });
+    }
+
     clearSelection() {
         this.formGroup.controls["contractor"].setValue(undefined);
+    }
+    clearContractSelection() {
+        this.formGroup.controls["contract"].setValue(undefined);
     }
 }
