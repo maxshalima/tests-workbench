@@ -13,8 +13,8 @@ export class IncomingDocumentsService extends AbstractCrudService<IncomingDocume
 
     constructor(protected override http: HttpClient) {
         super(http);
-        // this._subUrl = `${environment.apiBaseUrl}/incoming-documents`;
-        this._subUrl = `${environment.apiBaseUrl}/warehouses`;
+        this._subUrl = `${environment.apiBaseUrl}/incoming-documents`;
+        // this._subUrl = `${environment.apiBaseUrl}/warehouses`;
 
     }
 
