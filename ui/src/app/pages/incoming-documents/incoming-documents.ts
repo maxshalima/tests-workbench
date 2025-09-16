@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { WarehouseService } from '../service/warehouse.service';
 import { PageModel } from 'src/interfaces/page-model';
-import { Warehouse } from 'src/interfaces/warehouse';
 import { TableModule } from 'primeng/table';
 import { Checkbox } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { DialogService } from 'primeng/dynamicdialog';
-import { WarehouseEditor } from '@/components/warehouse-editor/warehouse-editor';
 import { Button } from "primeng/button";
 import { Tooltip } from "primeng/tooltip";
 import { InputText } from "primeng/inputtext";
 import {IncomingDocumentsService} from "@/pages/service/incoming-documents.service";
 import {IncomingDocument} from "../../../interfaces/incoming-document";
+import {IncomingDocumentEditor} from "@/components/incoming-document-editor/incoming-document-editor";
 
 @Component({
     selector: 'app-incoming-documents',
@@ -40,14 +38,14 @@ export class IncomingDocuments implements OnInit {
         });
     }
 
-    switch(warehouseId: number) {
-        this.service.switchWarehouse(warehouseId).subscribe(()=>{
+    switch(incomingDocumentId: number) {
+        this.service.switchWarehouse(incomingDocumentId).subscribe(()=>{
             this.loadIncomingDocuments();
         })
     }
 
     edit(incomingDocumentId?: number) {
-        this.dialogService.open(WarehouseEditor, {
+        this.dialogService.open(IncomingDocumentEditor, {
             width: '50vw',
             modal:true,
             breakpoints: {
