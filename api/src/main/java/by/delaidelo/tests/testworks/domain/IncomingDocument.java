@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,4 +30,7 @@ public class IncomingDocument extends AbstractEntity {
     @ManyToOne
     @JoinColumn
     private Warehouse warehouse;
+
+    @OneToMany(mappedBy = "incomingDocument", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<IncomingDocumentItem> items;
 }

@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -33,5 +34,7 @@ public class IncomingDocumentDto {
 
     @Valid
     private SelectListItemDto warehouse;
+
+    private List<IncomingDocumentItemDto> items;
 
 }
