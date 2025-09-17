@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 public class IncomingDocumentItemDto {
     private Long id;
     private Long warehouseItemTypeId;
+    private String warehouseItemTypeTitle;
     private Integer quantity;
     private BigDecimal price;
 }

@@ -15,7 +15,7 @@
 
                         <label for="warehouseItemTypeId" class="mb-1 text-left" >Товар</label>
                         <p-autocomplete [forceSelection]="true" formControlName="warehouseItemType" [suggestions]="warehouseItemTypes" showClear="true"
-                                        (completeMethod)="completeWarehouseItemTypes($event)" id="warehouseItemTypeId" fluid placeholder="Выберете товар"
+                                        (completeMethod)="completeWarehouseItemTypes($event)" id="warehouseItemTypeId" fluid placeholder="Выберите товар"
                                         (onClear)="clearSelection()" optionLabel="title"
                         >
                             <ng-template let-item #item>

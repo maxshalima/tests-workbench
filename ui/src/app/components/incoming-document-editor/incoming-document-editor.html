@@ -62,7 +62,7 @@
                 </div>
             </div>
 
-            <p-table [value]="tmcTable" [tableStyle]="{ 'min-width': '50rem', 'margin-top': '3rem'  }" [scrollable]="true" scrollHeight="500px" >
+            <p-table [value]="tmsItems" [tableStyle]="{ 'min-width': '50rem', 'margin-top': '3rem'  }" [scrollable]="true" scrollHeight="500px" >
                 <ng-template #header>
                     <tr>
                         <th>Наименование ТМЦ</th>
@@ -76,8 +76,7 @@
 
                 <ng-template #body let-tmcItem>
                     <tr>
-
-                        <td>{{ tmcItem.name }}</td>
+                        <td>{{ tmcItem.warehouseItemTypeTitle }}</td>
                         <td>{{ tmcItem.quantity }}</td>
                         <td>{{ tmcItem.price }}</td>
                         <td>{{ calculateSum(tmcItem.quantity, tmcItem.price) }}</td>

@@ -14,7 +14,7 @@ import {ContractorService} from "@/pages/service/contractor.service";
 import {SelectListItemDto} from "../../../interfaces/select-list-item-dto";
 import { TableModule } from 'primeng/table';
 import {TmcItemEditor} from "@/components/tmc-item-editor/tmc-item-editor";
-import {TmcTableItemDto} from "../../../interfaces/tmc-list-item-dto";
+import {IncomingDocumentItemDto} from "../../../interfaces/tmc-list-item-dto";
 
 
 @Component({
@@ -31,8 +31,7 @@ export class IncomingDocumentEditor implements OnInit {
     contractors!: SelectListItemDto[];
     contracts!: SelectListItemDto[];
     warehouse!: SelectListItemDto;
-    tmcTable: TmcTableItemDto[] = [];
-
+    tmsItems: IncomingDocumentItemDto[] = [];
 
     constructor(
         private service: IncomingDocumentsService,
@@ -49,46 +48,36 @@ export class IncomingDocumentEditor implements OnInit {
             contract: [undefined, Validators.required],
             documentNumber: [undefined, Validators.required],
             documentDate: [undefined, Validators.required],
-            warehouse: [undefined]
+            warehouse: [undefined],
+            tmsItems: this.fb.array([])
         });
     }
 
     ngOnInit(): void {
-
-         this.tmcTable = [
-            {
-                id: 1, // assuming BaseDto includes an 'id' field
-                name: 'Item A',
-                quantity: '10',
-                price: '5.00',
-                sum: '50.00'
-            },
-            {
-                id: 2,
-                name: 'Item B',
-                quantity: '3',
-                price: '20.00',
-                sum: '60.00'
-            },
-            {
-                id: 3,
-                name: 'Item C',
-                quantity: '7',
-                price: '8.50',
-                sum: '59.50'
-            }
-        ];
-
-
-
         this.incomingDocumentId = this.config.data.incomingDocumentId;
-
 
         if (this.incomingDocumentId) {
             this.service.findById(this.incomingDocumentId).subscribe((incomingDocumentData) => {
                 if (incomingDocumentData.documentDate) {
                     incomingDocumentData.documentDate = new Date(incomingDocumentData.documentDate); // Convert string to Date
                 }
+
+                this.tmsItems = incomingDocumentData.items || [];
+
+                //✅ Initialize FormArray for tmsItems
+                const itemsArray = this.fb.array(
+                    this.tmsItems.map(item => this.fb.group({
+                        id: [item.id],
+                        warehouseItemTypeId: [item.warehouseItemTypeId],
+                        // warehouseItemTypeTitle: [item.warehouseItemTypeTitle],
+                        name: [item.name],
+                        quantity: [item.quantity],
+                        price: [item.price],
+                        sum: [item.sum]
+                    }))
+                );
+                this.formGroup.setControl('tmsItems', itemsArray);
+
                 this.formGroup.patchValue(incomingDocumentData);
             });
         }
@@ -150,15 +139,15 @@ export class IncomingDocumentEditor implements OnInit {
             data: {
                 // pass any initial data if needed
             }
-        }).onClose.subscribe((res: TmcTableItemDto | null) => {
+        }).onClose.subscribe((res: IncomingDocumentItemDto | null) => {
             if (res) {
                 this.updateTmsArray(res);
             }
         });
     }
 
-    updateTmsArray(newItem: TmcTableItemDto) {
-        this.tmcTable = [...this.tmcTable, newItem]; // ✅ triggers change detection
+    updateTmsArray(newItem: IncomingDocumentItemDto) {
+        this.tmsItems = [...this.tmsItems, newItem]; // ✅ triggers change detection
     }
 
     calculateSum(quantity: string, price: string): string {

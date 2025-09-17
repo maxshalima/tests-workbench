@@ -1,6 +1,8 @@
 import { BaseDto } from './base-dto';
 
-export interface TmcTableItemDto extends BaseDto {
+export interface IncomingDocumentItemDto extends BaseDto {
+    warehouseItemTypeId: string,
+    warehouseItemTypeTitle: string,
     name: string;
     quantity: string;
     price: string;
