@@ -1,6 +1,10 @@
 package by.delaidelo.tests.testworks.services.incomingDocument;
 
 import by.delaidelo.tests.testworks.dao.IncomingDocumentRepository;
+import by.delaidelo.tests.testworks.dao.WarehouseItemTypeRepository;
+import by.delaidelo.tests.testworks.domain.IncomingDocument;
+import by.delaidelo.tests.testworks.domain.IncomingDocumentItem;
+import by.delaidelo.tests.testworks.domain.WarehouseItemType;
 import by.delaidelo.tests.testworks.dto.IncomingDocumentDto;
 import by.delaidelo.tests.testworks.mappers.IncomingDocumentMapper;
 import jakarta.validation.constraints.NotNull;
@@ -13,10 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class IncomingDocumentsService {
     private final IncomingDocumentRepository incomingDocumentRepository;
+    private final WarehouseItemTypeRepository warehouseItemTypeRepository;
     private final IncomingDocumentMapper mapper;
 
-    public IncomingDocumentsService(IncomingDocumentRepository incomingDocumentRepository, IncomingDocumentMapper mapper) {
+    public IncomingDocumentsService(IncomingDocumentRepository incomingDocumentRepository,
+                                    IncomingDocumentMapper mapper,
+                                    WarehouseItemTypeRepository warehouseItemTypeRepository) {
         this.incomingDocumentRepository = incomingDocumentRepository;
+        this.warehouseItemTypeRepository = warehouseItemTypeRepository;
         this.mapper = mapper;
     }
 
@@ -27,10 +35,20 @@ public class IncomingDocumentsService {
 
 
     public Long create(IncomingDocumentDto dto) {
-        final var w = mapper.fromDto(dto);
-        incomingDocumentRepository.save(w);
-        return w.getId();
-    }
+        IncomingDocument document = mapper.fromDto(dto);
+
+        for (IncomingDocumentItem item : document.getItems()) {
+            item.setIncomingDocument(document);
+
+            Long typeId = item.getWarehouseItemType().getId(); // assuming you expose this
+            WarehouseItemType type = warehouseItemTypeRepository.findById(typeId)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid warehouseItemTypeId: " + typeId));
+            item.setWarehouseItemType(type);
+        }
+
+        incomingDocumentRepository.save(document);
+        return document.getId();
+        }
 
 
     public void update(@NotNull Long id, @NotNull IncomingDocumentDto dto) {
