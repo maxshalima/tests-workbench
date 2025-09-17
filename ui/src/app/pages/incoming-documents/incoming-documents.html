@@ -15,26 +15,33 @@
         <ng-template #header>
             <tr>
                 <th>#</th>
-                <th>Title</th>
-                <th>Address</th>
-                <th>State</th>
+                <th>Дата документа</th>
+                <th>Номер документа</th>
+                <th>Контрагент</th>
+                <th>Договор</th>
+                <th>Склад</th>
+                <th>Статус</th>
                 <th>Actions</th>
             </tr>
         </ng-template>
-        <ng-template #body let-w>
+        <ng-template #body let-incomingDoc>
             <tr>
-                <td>{{w.id}}</td>
-                <td>{{w.title}}</td>
-                <td>{{w.address}}</td>
+                <td>{{incomingDoc.id}}</td>
+                <td>{{incomingDoc.documentDate}}</td>
+                <td>{{incomingDoc.documentNumber}}</td>
+                <td>{{incomingDoc.contractor.title}}</td>
+                <td>{{incomingDoc.contract.title}}</td>
+                <td>{{incomingDoc.warehouse.title}}</td>
                 <td>
-                    <p-checkbox [binary]="true" [(ngModel)]="w.enabled" [readonly]="true"></p-checkbox>
+                    <p-checkbox [binary]="true" [(ngModel)]="incomingDoc.enabled" [readonly]="true"></p-checkbox>
                 </td>
+
                 <td>
-                    <p-button icon="pi pi-pencil" (onClick)="edit(w.id)"></p-button>
-                    <p-button icon="pi pi-circle-on" (onClick)="switch(w.id)" [hidden]="w.enabled"
-                        pTooltip="Активировать"></p-button>
-                    <p-button icon="pi pi-circle-off" (onClick)="switch(w.id)" [hidden]="!w.enabled"
-                        pTooltip="Деактивировать"></p-button>
+                    <p-button icon="pi pi-pencil" (onClick)="edit(incomingDoc.id)"></p-button>
+                    <p-button icon="pi pi-check" (onClick)="switch(incomingDoc.id)" [hidden]="incomingDoc.enabled"
+                              pTooltip="Провести"></p-button>
+                    <p-button icon="pi pi-undo" (onClick)="switch(incomingDoc.id)" [hidden]="!incomingDoc.enabled"
+                              pTooltip="Отменить проводку"></p-button>
                 </td>
             </tr>
         </ng-template>
