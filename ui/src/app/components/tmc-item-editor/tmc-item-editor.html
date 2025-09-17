@@ -1,0 +1,54 @@
+<form [formGroup]="formGroup" (ngSubmit)="save()">
+    <div class="p-dialog" >
+        <div class="p-dialog-header">
+            <div class="text-xl font-bold">
+                Добавление записи ТМС
+            </div>
+        </div>
+
+        <div class="p-dialog-content" [style]="{ height: '500px' }">
+            <div class="flex flex-col gap-6 w-full sm:w-auto">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-6">
+
+                    <div class="flex-auto flex flex-col">
+
+
+                        <label for="warehouseItemTypeId" class="mb-1 text-left" >Товар</label>
+                        <p-autocomplete [forceSelection]="true" formControlName="warehouseItemType" [suggestions]="warehouseItemTypes" showClear="true"
+                                        (completeMethod)="completeWarehouseItemTypes($event)" id="warehouseItemTypeId" fluid placeholder="Выберете товар"
+                                        (onClear)="clearSelection()" optionLabel="title"
+                        >
+                            <ng-template let-item #item>
+                                {{item.title}}
+                            </ng-template>
+                        </p-autocomplete>
+
+                    </div>
+
+                    <div class="flex-auto flex flex-col">
+                        <label for="quantityId" class="mb-1 text-left">Кол-во</label>
+                        <input id="quantityId" pInputText/>
+                    </div>
+
+                    <div class="flex-auto flex flex-col">
+                        <label for="priceId" class="mb-1 text-left">Цена</label>
+                        <input id="priceId" pInputText/>
+                    </div>
+
+                    <div class="flex-auto flex flex-col">
+                        <label for="totalPriceId" class="mb-1 text-left">Сумма</label>
+                        <input id="totalPriceId" readonly pInputText/>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="p-dialog-footer">
+            <p-button label="Добавить" type="submit"></p-button>
+            <p-button label="Отмена" type="button" (onClick)="cancel()"></p-button>
+        </div>
+    </div>
+</form>

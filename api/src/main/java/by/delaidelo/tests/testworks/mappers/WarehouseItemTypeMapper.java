@@ -5,7 +5,7 @@ import org.mapstruct.Mapper;
 import by.delaidelo.tests.testworks.domain.WarehouseItemType;
 import by.delaidelo.tests.testworks.dto.WarehouseItemTypeDto;
 
-@Mapper
+@Mapper(uses = {WarehouseItemTypeEntityMapper.class})
 public interface WarehouseItemTypeMapper extends MappableEntity<WarehouseItemType, WarehouseItemTypeDto> {
     
 }

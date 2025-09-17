@@ -4,6 +4,8 @@ import { WarehouseItemType } from 'src/interfaces/warehouse-item-type';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { PageModel } from 'src/interfaces/page-model';
+import {Observable} from "rxjs";
+import {SelectListItemDto} from "../../../interfaces/select-list-item-dto";
 
 @Injectable({
     providedIn: 'root'
@@ -36,5 +38,13 @@ export class WarehouseItemTypeService extends AbstractCrudService<WarehouseItemT
         return this.http.get<PageModel<WarehouseItemType>>(this._subUrl, {
             params
         });
+    }
+
+    public findSimple(query = ''): Observable<SelectListItemDto[]> {
+        let params = new HttpParams();
+        if (query) {
+            params = params.set('query', query);
+        }
+        return this.http.get<SelectListItemDto[]>(this._subUrl + '/simple', { params });
     }
 }

@@ -13,23 +13,21 @@ import {ContractService} from "@/pages/service/contract.service";
 import {ContractorService} from "@/pages/service/contractor.service";
 import {SelectListItemDto} from "../../../interfaces/select-list-item-dto";
 import { TableModule } from 'primeng/table';
-import {TmcItemEditor} from "@/components/tmc-item-editor/tmc-item-editor";
+import {WarehouseItemTypeService} from "@/pages/service/warehouse-item-type.service";
 
 
 @Component({
-    selector: 'app-incoming-document-editor',
-    templateUrl: './incoming-document-editor.html',
-    styleUrl: './incoming-document-editor.scss',
+    selector: 'tmc-item-editor-editor',
+    templateUrl: './tmc-item-editor.html',
+    styleUrl: './tmc-item-editor.scss',
     imports: [FormsModule, ReactiveFormsModule, FloatLabel, InputText, Button, DatePicker, AutoComplete, TableModule],
     providers: [DialogService]
 
 })
-export class IncomingDocumentEditor implements OnInit {
-    incomingDocumentId: number | undefined;
+export class TmcItemEditor implements OnInit {
     formGroup: FormGroup;
-    contractors!: SelectListItemDto[];
-    contracts!: SelectListItemDto[];
-    warehouse!: SelectListItemDto;
+    warehouseItemTypes!: SelectListItemDto[];
+
 
     tmcTable = [
         {
@@ -69,8 +67,7 @@ export class IncomingDocumentEditor implements OnInit {
         private service: IncomingDocumentsService,
         private ref: DynamicDialogRef,
         private config: DynamicDialogConfig,
-        private contractService: ContractService,
-        private contractorService: ContractorService,
+        private warehouseItemTypeService: WarehouseItemTypeService,
         private fb: FormBuilder,
         private dialogService: DialogService
 
@@ -85,29 +82,29 @@ export class IncomingDocumentEditor implements OnInit {
     }
 
     ngOnInit(): void {
-        this.incomingDocumentId = this.config.data.incomingDocumentId;
-        if (this.incomingDocumentId) {
-            this.service.findById(this.incomingDocumentId).subscribe((incomingDocumentData) => {
-                if (incomingDocumentData.documentDate) {
-                    incomingDocumentData.documentDate = new Date(incomingDocumentData.documentDate); // Convert string to Date
-                }
-                this.formGroup.patchValue(incomingDocumentData);
-            });
-        }
+        // this.incomingDocumentId = this.config.data.incomingDocumentId;
+        // if (this.incomingDocumentId) {
+        //     this.service.findById(this.incomingDocumentId).subscribe((incomingDocumentData) => {
+        //         if (incomingDocumentData.documentDate) {
+        //             incomingDocumentData.documentDate = new Date(incomingDocumentData.documentDate); // Convert string to Date
+        //         }
+        //         this.formGroup.patchValue(incomingDocumentData);
+        //     });
+        // }
     }
 
     save() {
-        let incomingDocument = this.formGroup.value as IncomingDocument;
-        incomingDocument.enabled = true;
-        if (this.incomingDocumentId) {
-            this.service.update(this.incomingDocumentId, incomingDocument).subscribe(()=>{
-                this.ref.close(true);
-            });
-        } else {
-            this.service.create(incomingDocument).subscribe((res)=>{
-                this.ref.close(true);
-            })
-        }
+        // let incomingDocument = this.formGroup.value as IncomingDocument;
+        // incomingDocument.enabled = true;
+        // if (this.incomingDocumentId) {
+        //     this.service.update(this.incomingDocumentId, incomingDocument).subscribe(()=>{
+        //         this.ref.close(true);
+        //     });
+        // } else {
+        //     this.service.create(incomingDocument).subscribe((res)=>{
+        //         this.ref.close(true);
+        //     })
+        // }
     }
 
      cancel() {
@@ -115,28 +112,15 @@ export class IncomingDocumentEditor implements OnInit {
      }
 
 
-    completeContractors(event: AutoCompleteCompleteEvent) {
-        this.contractorService.findSimple(event.query).subscribe(res=>{
-            this.contractors = res;
-        });
-    }
-
-    completeContracts(event: AutoCompleteCompleteEvent) {
-        this.contractService.findSimple(event.query).subscribe(res=>{
-            this.contracts = res;
+    completeWarehouseItemTypes(event: AutoCompleteCompleteEvent) {
+        this.warehouseItemTypeService.findSimple(event.query).subscribe(res=>{
+            this.warehouseItemTypes = res;
         });
     }
 
     clearSelection() {
-        this.formGroup.controls["contractor"].setValue(undefined);
+        this.formGroup.controls["warehouseItemType"].setValue(undefined);
     }
-    clearContractSelection() {
-        this.formGroup.controls["contract"].setValue(undefined);
-    }
-
-    /////////////////////////////////////
-
-
 
     removeTmcItem() {
     }
