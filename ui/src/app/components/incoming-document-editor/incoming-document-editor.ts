@@ -14,6 +14,7 @@ import {ContractorService} from "@/pages/service/contractor.service";
 import {SelectListItemDto} from "../../../interfaces/select-list-item-dto";
 import { TableModule } from 'primeng/table';
 import {TmcItemEditor} from "@/components/tmc-item-editor/tmc-item-editor";
+import {TmcTableItemDto} from "../../../interfaces/tmc-list-item-dto";
 
 
 @Component({
@@ -30,39 +31,7 @@ export class IncomingDocumentEditor implements OnInit {
     contractors!: SelectListItemDto[];
     contracts!: SelectListItemDto[];
     warehouse!: SelectListItemDto;
-
-    tmcTable = [
-        {
-            code: 'P001',
-            name: 'Wireless Mouse',
-            category: 'Electronics',
-            quantity: 25
-        },
-        {
-            code: 'P002',
-            name: 'Notebook A5',
-            category: 'Stationery',
-            quantity: 100
-        },
-        {
-            code: 'P003',
-            name: 'Coffee Mug',
-            category: 'Kitchenware',
-            quantity: 40
-        },
-        {
-            code: 'P004',
-            name: 'USB-C Cable',
-            category: 'Accessories',
-            quantity: 60
-        },
-        {
-            code: 'P005',
-            name: 'Desk Lamp',
-            category: 'Furniture',
-            quantity: 15
-        }
-    ];
+    tmcTable: TmcTableItemDto[] = [];
 
 
     constructor(
@@ -85,7 +54,36 @@ export class IncomingDocumentEditor implements OnInit {
     }
 
     ngOnInit(): void {
+
+         this.tmcTable = [
+            {
+                id: 1, // assuming BaseDto includes an 'id' field
+                name: 'Item A',
+                quantity: '10',
+                price: '5.00',
+                sum: '50.00'
+            },
+            {
+                id: 2,
+                name: 'Item B',
+                quantity: '3',
+                price: '20.00',
+                sum: '60.00'
+            },
+            {
+                id: 3,
+                name: 'Item C',
+                quantity: '7',
+                price: '8.50',
+                sum: '59.50'
+            }
+        ];
+
+
+
         this.incomingDocumentId = this.config.data.incomingDocumentId;
+
+
         if (this.incomingDocumentId) {
             this.service.findById(this.incomingDocumentId).subscribe((incomingDocumentData) => {
                 if (incomingDocumentData.documentDate) {
@@ -141,26 +139,36 @@ export class IncomingDocumentEditor implements OnInit {
     removeTmcItem() {
     }
 
-    addTmcItem(incomingDocumentId?: number) {
+    addTmcItemDialog() {
         this.dialogService.open(TmcItemEditor, {
             width: '100vw',
-            modal:true,
+            modal: true,
             breakpoints: {
                 '960px': '75vw',
                 '640px': '90vw'
             },
             data: {
-                incomingDocumentId
+                // pass any initial data if needed
             }
-        }).onClose.subscribe((res)=>{
-            if(res) {
-                this.updateTmsArray();
+        }).onClose.subscribe((res: TmcTableItemDto | null) => {
+            if (res) {
+                this.updateTmsArray(res);
             }
         });
     }
 
-    updateTmsArray() {
-
+    updateTmsArray(newItem: TmcTableItemDto) {
+        this.tmcTable = [...this.tmcTable, newItem]; // ✅ triggers change detection
     }
+
+    calculateSum(quantity: string, price: string): string {
+        const q = parseFloat(quantity);
+        const p = parseFloat(price);
+        if (!isNaN(q) && !isNaN(p) && q > 0 && p > 0) {
+            return (q * p).toFixed(2);
+        }
+        return '0.00';
+    }
+
 
 }

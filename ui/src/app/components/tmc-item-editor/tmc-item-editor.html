@@ -27,24 +27,40 @@
 
                     <div class="flex-auto flex flex-col">
                         <label for="quantityId" class="mb-1 text-left">Кол-во</label>
-                        <input id="quantityId" pInputText/>
+                        <p-inputNumber
+                            id="quantityId"
+                            formControlName="quantity"
+                            [min]="1"
+                            [step]="1"
+                            [useGrouping]="false"
+                        ></p-inputNumber>
+
                     </div>
 
                     <div class="flex-auto flex flex-col">
                         <label for="priceId" class="mb-1 text-left">Цена</label>
-                        <input id="priceId" pInputText/>
+                        <p-inputNumber
+                            id="priceId"
+                            formControlName="price"
+                            [min]="0.01"
+                            [step]="0.01"
+                            [mode]="'decimal'"
+                            [useGrouping]="false"
+                            [minFractionDigits]="1"
+                            [maxFractionDigits]="2"
+                        ></p-inputNumber>
+
                     </div>
 
                     <div class="flex-auto flex flex-col">
                         <label for="totalPriceId" class="mb-1 text-left">Сумма</label>
-                        <input id="totalPriceId" readonly pInputText/>
+                        <input id="totalPriceId" readonly pInputText formControlName="totalPrice"/>
                     </div>
 
                 </div>
             </div>
 
         </div>
-
 
         <div class="p-dialog-footer">
             <p-button label="Добавить" type="submit"></p-button>

@@ -2,109 +2,71 @@ import {DynamicDialogRef, DynamicDialogConfig, DialogService} from 'primeng/dyna
 import { IncomingDocumentsService } from '@/pages/service/incoming-documents.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IncomingDocument } from 'src/interfaces/incoming-document';
 
 import { FloatLabel } from "primeng/floatlabel";
 import { InputText } from "primeng/inputtext";
 import { Button } from "primeng/button";
 import {DatePicker} from "primeng/datepicker";
 import {AutoComplete, AutoCompleteCompleteEvent} from "primeng/autocomplete";
-import {ContractService} from "@/pages/service/contract.service";
-import {ContractorService} from "@/pages/service/contractor.service";
 import {SelectListItemDto} from "../../../interfaces/select-list-item-dto";
 import { TableModule } from 'primeng/table';
 import {WarehouseItemTypeService} from "@/pages/service/warehouse-item-type.service";
+import {InputNumber} from "primeng/inputnumber";
 
 
 @Component({
     selector: 'tmc-item-editor-editor',
     templateUrl: './tmc-item-editor.html',
     styleUrl: './tmc-item-editor.scss',
-    imports: [FormsModule, ReactiveFormsModule, FloatLabel, InputText, Button, DatePicker, AutoComplete, TableModule],
+    imports: [FormsModule, ReactiveFormsModule, FloatLabel, InputText, Button, DatePicker, AutoComplete, TableModule, InputNumber],
     providers: [DialogService]
 
 })
 export class TmcItemEditor implements OnInit {
     formGroup: FormGroup;
     warehouseItemTypes!: SelectListItemDto[];
-
-
-    tmcTable = [
-        {
-            code: 'P001',
-            name: 'Wireless Mouse',
-            category: 'Electronics',
-            quantity: 25
-        },
-        {
-            code: 'P002',
-            name: 'Notebook A5',
-            category: 'Stationery',
-            quantity: 100
-        },
-        {
-            code: 'P003',
-            name: 'Coffee Mug',
-            category: 'Kitchenware',
-            quantity: 40
-        },
-        {
-            code: 'P004',
-            name: 'USB-C Cable',
-            category: 'Accessories',
-            quantity: 60
-        },
-        {
-            code: 'P005',
-            name: 'Desk Lamp',
-            category: 'Furniture',
-            quantity: 15
-        }
-    ];
-
-
     constructor(
-        private service: IncomingDocumentsService,
         private ref: DynamicDialogRef,
-        private config: DynamicDialogConfig,
         private warehouseItemTypeService: WarehouseItemTypeService,
         private fb: FormBuilder,
-        private dialogService: DialogService
 
     ) {
         this.formGroup = fb.group({
-            contractor: [undefined, Validators.required],
-            contract: [undefined, Validators.required],
-            documentNumber: [undefined, Validators.required],
-            documentDate: [undefined, Validators.required],
-            warehouse: [undefined]
+            warehouseItemType: [undefined, Validators.required],
+            quantity: [
+                undefined,
+                [
+                    Validators.required,
+                    Validators.pattern(/^[1-9]\d*$/) // ✅ Only natural numbers > 0
+                ]
+            ],
+            price: [
+                undefined,
+                [
+                    Validators.required,
+                    Validators.pattern(/^(?!0*$)\d+(\.\d{1,2})?$/)
+                ]
+            ],
+            totalPrice: [{ value: '', disabled: true }]
         });
     }
 
     ngOnInit(): void {
-        // this.incomingDocumentId = this.config.data.incomingDocumentId;
-        // if (this.incomingDocumentId) {
-        //     this.service.findById(this.incomingDocumentId).subscribe((incomingDocumentData) => {
-        //         if (incomingDocumentData.documentDate) {
-        //             incomingDocumentData.documentDate = new Date(incomingDocumentData.documentDate); // Convert string to Date
-        //         }
-        //         this.formGroup.patchValue(incomingDocumentData);
-        //     });
-        // }
+        this.formGroup.get('quantity')?.valueChanges.subscribe(() => this.updateTotalPrice());
+        this.formGroup.get('price')?.valueChanges.subscribe(() => this.updateTotalPrice());
     }
 
     save() {
-        // let incomingDocument = this.formGroup.value as IncomingDocument;
-        // incomingDocument.enabled = true;
-        // if (this.incomingDocumentId) {
-        //     this.service.update(this.incomingDocumentId, incomingDocument).subscribe(()=>{
-        //         this.ref.close(true);
-        //     });
-        // } else {
-        //     this.service.create(incomingDocument).subscribe((res)=>{
-        //         this.ref.close(true);
-        //     })
-        // }
+        if (this.formGroup.valid) {
+            const formValue = this.formGroup.value;
+
+            const newItem = {
+                name: formValue.warehouseItemType?.title || 'Unnamed',
+                quantity: formValue.quantity.toString(),
+                price: formValue.price.toString()
+            };
+            this.ref.close(newItem);
+        }
     }
 
      cancel() {
@@ -122,29 +84,16 @@ export class TmcItemEditor implements OnInit {
         this.formGroup.controls["warehouseItemType"].setValue(undefined);
     }
 
-    removeTmcItem() {
-    }
+    updateTotalPrice(): void {
+        const quantity = parseFloat(this.formGroup.get('quantity')?.value);
+        const price = parseFloat(this.formGroup.get('price')?.value);
 
-    addTmcItem(incomingDocumentId?: number) {
-        this.dialogService.open(TmcItemEditor, {
-            width: '100vw',
-            modal:true,
-            breakpoints: {
-                '960px': '75vw',
-                '640px': '90vw'
-            },
-            data: {
-                incomingDocumentId
-            }
-        }).onClose.subscribe((res)=>{
-            if(res) {
-                this.updateTmsArray();
-            }
-        });
-    }
-
-    updateTmsArray() {
-
+        if (!isNaN(quantity) && quantity > 0 && !isNaN(price) && price > 0) {
+            const total = quantity * price;
+            this.formGroup.get('totalPrice')?.setValue(total.toFixed(2), { emitEvent: false });
+        } else {
+            this.formGroup.get('totalPrice')?.setValue('', { emitEvent: false });
+        }
     }
 
 }
