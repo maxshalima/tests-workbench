@@ -33,28 +33,17 @@ public class IncomingDocumentsService {
                 .map(mapper::toDto);
     }
 
-
     public Long create(IncomingDocumentDto dto) {
         IncomingDocument document = mapper.fromDto(dto);
-
-        for (IncomingDocumentItem item : document.getItems()) {
-            item.setIncomingDocument(document);
-
-            Long typeId = item.getWarehouseItemType().getId(); // assuming you expose this
-            WarehouseItemType type = warehouseItemTypeRepository.findById(typeId)
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid warehouseItemTypeId: " + typeId));
-            item.setWarehouseItemType(type);
-        }
-
+        setDocumentItems(document);
         incomingDocumentRepository.save(document);
         return document.getId();
-        }
-
+    }
 
     public void update(@NotNull Long id, @NotNull IncomingDocumentDto dto) {
         final var incomingDocument = incomingDocumentRepository.findById(id).orElseThrow();
         mapper.update(incomingDocument, dto);
-        incomingDocumentRepository.save(incomingDocument);
+        setDocumentItems(incomingDocument);
     }
 
 
@@ -73,5 +62,15 @@ public class IncomingDocumentsService {
         return incomingDocumentRepository.findById(id)
             .map(mapper::toDto)
             .orElseThrow();
+    }
+
+    private void setDocumentItems(final IncomingDocument document) {
+        for (IncomingDocumentItem item : document.getItems()) {
+            item.setIncomingDocument(document);
+            Long typeId = item.getWarehouseItemType().getId();
+            WarehouseItemType type = warehouseItemTypeRepository.findById(typeId)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid warehouseItemTypeId: " + typeId));
+            item.setWarehouseItemType(type);
+        }
     }
 }
