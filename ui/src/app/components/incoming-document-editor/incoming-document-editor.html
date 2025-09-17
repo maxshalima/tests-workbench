@@ -15,7 +15,10 @@
 
                     <div class="flex-auto flex flex-col">
                             <label for="documentDate" class="mb-1 text-left">Дата документа</label>
-                            <p-datePicker formControlName="documentDate" id="documentDate"></p-datePicker>
+                            <p-datePicker formControlName="documentDate" id="documentDate"
+                                          [showIcon]="true"
+                                          [showOnFocus]="false">
+                            </p-datePicker>
                     </div>
 
                     <div class="flex-auto  flex flex-col">
