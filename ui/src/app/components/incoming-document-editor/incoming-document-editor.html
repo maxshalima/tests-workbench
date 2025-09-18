@@ -61,9 +61,9 @@
 
                     <div class="flex-auto flex flex-col">
                         <label for="warehouseId" class="mb-1 text-left" >Склад</label>
-                        <p-autocomplete [forceSelection]="true" formControlName="contract" [suggestions]="contracts" showClear="true"
-                                        (completeMethod)="completeContracts($event)" fluid placeholder="Выберите cклад"
-                                        (onClear)="clearContractSelection()" optionLabel="title"  id="warehouseId"
+                        <p-autocomplete [forceSelection]="true" formControlName="warehouse" [suggestions]="warehouses" showClear="true"
+                                        (completeMethod)="completeWarehouses($event)" fluid placeholder="Выберите cклад"
+                                        (onClear)="clearWarehouseSelection()" optionLabel="title"  id="warehouseId"
                         >
                             <ng-template let-item #item>
                                 {{item.title}}

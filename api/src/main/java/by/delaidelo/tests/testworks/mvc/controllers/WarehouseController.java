@@ -1,5 +1,6 @@
 package by.delaidelo.tests.testworks.mvc.controllers;
 
+import by.delaidelo.tests.testworks.dto.SelectListItemDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import by.delaidelo.tests.testworks.dto.WarehouseDto;
 import by.delaidelo.tests.testworks.services.warehouse.WarehousesService;
 import jakarta.validation.Valid;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/warehouses")
@@ -36,6 +39,17 @@ public class WarehouseController {
     public Page<WarehouseDto> find(@RequestParam(required = false, defaultValue = "") String query, Pageable pageable) {
         return service.findWarehouses(query, pageable);
     }
+
+    /**
+     * Return no more than 20 records
+     * @param query
+     * @return
+     */
+    @GetMapping("/simple")
+    public List<SelectListItemDto> findSimple(@RequestParam(defaultValue = "") String query) {
+        return service.findSimple(query);
+    }
+
 
     @PostMapping
     public ResponseEntity<Long> create(@RequestBody WarehouseDto dto) {

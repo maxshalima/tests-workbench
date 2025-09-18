@@ -21,7 +21,7 @@ public class IncomingDocumentDto {
     private LocalDate documentDate;
 
     @NotNull
-    @Size(min = 10, max = 10)
+    @Size(min = 1, max = 10)
     private String documentNumber;
 
     @NotNull

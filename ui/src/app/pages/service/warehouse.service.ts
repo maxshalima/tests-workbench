@@ -5,6 +5,7 @@ import { AbstractCrudService } from 'src/services/AbstractCrudService';
 import { Warehouse } from 'src/interfaces/warehouse';
 import { Observable } from 'rxjs';
 import { PageModel } from 'src/interfaces/page-model';
+import {SelectListItemDto} from "../../../interfaces/select-list-item-dto";
 @Injectable({
     providedIn: 'root'
 })
@@ -42,5 +43,13 @@ export class WarehouseService extends AbstractCrudService<Warehouse> {
 
     switchWarehouse(warehouseId: number) {
         return this.http.post(`${this._subUrl}/${warehouseId}/switch`, {});
+    }
+
+    public findSimple(query = ''): Observable<SelectListItemDto[]> {
+        let params = new HttpParams();
+        if (query) {
+            params = params.set('query', query);
+        }
+        return this.http.get<SelectListItemDto[]>(this._subUrl + '/simple', { params });
     }
 }

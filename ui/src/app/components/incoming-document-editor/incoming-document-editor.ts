@@ -15,6 +15,7 @@ import {SelectListItemDto} from "../../../interfaces/select-list-item-dto";
 import { TableModule } from 'primeng/table';
 import {TmcItemEditor} from "@/components/tmc-item-editor/tmc-item-editor";
 import {IncomingDocumentItemDto} from "../../../interfaces/tmc-list-item-dto";
+import {WarehouseService} from "@/pages/service/warehouse.service";
 
 
 @Component({
@@ -30,6 +31,7 @@ export class IncomingDocumentEditor implements OnInit {
     formGroup: FormGroup;
     contractors!: SelectListItemDto[];
     contracts!: SelectListItemDto[];
+    warehouses!: SelectListItemDto[];
     warehouse!: SelectListItemDto;
     items: IncomingDocumentItemDto[] = [];
 
@@ -39,6 +41,7 @@ export class IncomingDocumentEditor implements OnInit {
         private config: DynamicDialogConfig,
         private contractService: ContractService,
         private contractorService: ContractorService,
+        private warehouseService: WarehouseService,
         private fb: FormBuilder,
         private dialogService: DialogService
 
@@ -114,6 +117,12 @@ export class IncomingDocumentEditor implements OnInit {
         });
     }
 
+    completeWarehouses(event: AutoCompleteCompleteEvent) {
+        this.warehouseService.findSimple(event.query).subscribe(res=>{
+            this.warehouses = res;
+        });
+    }
+
     clearSelection() {
         this.formGroup.controls["contractor"].setValue(undefined);
     }
@@ -121,10 +130,11 @@ export class IncomingDocumentEditor implements OnInit {
         this.formGroup.controls["contract"].setValue(undefined);
     }
 
-    /////////////////////////////////////
+    clearWarehouseSelection() {
+        this.formGroup.controls["warehouse"].setValue(undefined);
+    }
 
-
-
+        //TODO
     removeTmcItem() {
     }
 

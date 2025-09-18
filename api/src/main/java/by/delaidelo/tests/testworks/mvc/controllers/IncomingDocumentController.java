@@ -28,7 +28,7 @@ public class IncomingDocumentController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> create(@RequestBody IncomingDocumentDto dto) {
+    public ResponseEntity<Long> create(@RequestBody @Valid IncomingDocumentDto dto) {
         final var id = service.create(dto);
         return ResponseEntity.ok(id);
     }
