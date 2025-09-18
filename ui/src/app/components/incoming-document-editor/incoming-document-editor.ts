@@ -1,7 +1,7 @@
 import {DynamicDialogRef, DynamicDialogConfig, DialogService} from 'primeng/dynamicdialog';
 import { IncomingDocumentsService } from '@/pages/service/incoming-documents.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule, FormArray} from '@angular/forms';
 import { IncomingDocument } from 'src/interfaces/incoming-document';
 
 import { FloatLabel } from "primeng/floatlabel";
@@ -21,7 +21,7 @@ import {IncomingDocumentItemDto} from "../../../interfaces/tmc-list-item-dto";
     selector: 'app-incoming-document-editor',
     templateUrl: './incoming-document-editor.html',
     styleUrl: './incoming-document-editor.scss',
-    imports: [FormsModule, ReactiveFormsModule, FloatLabel, InputText, Button, DatePicker, AutoComplete, TableModule],
+    imports: [FormsModule, ReactiveFormsModule, InputText, Button, DatePicker, AutoComplete, TableModule],
     providers: [DialogService]
 
 })
@@ -31,7 +31,7 @@ export class IncomingDocumentEditor implements OnInit {
     contractors!: SelectListItemDto[];
     contracts!: SelectListItemDto[];
     warehouse!: SelectListItemDto;
-    tmsItems: IncomingDocumentItemDto[] = [];
+    items: IncomingDocumentItemDto[] = [];
 
     constructor(
         private service: IncomingDocumentsService,
@@ -43,14 +43,15 @@ export class IncomingDocumentEditor implements OnInit {
         private dialogService: DialogService
 
     ) {
-        this.formGroup = fb.group({
+        this.formGroup = this.fb.group({
             contractor: [undefined, Validators.required],
             contract: [undefined, Validators.required],
             documentNumber: [undefined, Validators.required],
             documentDate: [undefined, Validators.required],
             warehouse: [undefined],
-            tmsItems: this.fb.array([])
+            items: this.fb.array([])
         });
+
     }
 
     ngOnInit(): void {
@@ -62,22 +63,21 @@ export class IncomingDocumentEditor implements OnInit {
                     incomingDocumentData.documentDate = new Date(incomingDocumentData.documentDate); // Convert string to Date
                 }
 
-                this.tmsItems = incomingDocumentData.items || [];
+                this.items = incomingDocumentData.items || [];
 
-                //✅ Initialize FormArray for tmsItems
+                //✅ Initialize FormArray for items
                 const itemsArray = this.fb.array(
-                    this.tmsItems.map(item => this.fb.group({
+                    this.items.map(item => this.fb.group({
                         id: [item.id],
                         warehouseItemTypeId: [item.warehouseItemTypeId],
-                        // warehouseItemTypeTitle: [item.warehouseItemTypeTitle],
-                        name: [item.name],
+                        warehouseItemTypeTitle: [item.warehouseItemTypeTitle],
+                        // name: [item.name],
                         quantity: [item.quantity],
                         price: [item.price],
                         sum: [item.sum]
                     }))
                 );
-                this.formGroup.setControl('tmsItems', itemsArray);
-
+                this.formGroup.setControl('items', itemsArray);
                 this.formGroup.patchValue(incomingDocumentData);
             });
         }
@@ -147,8 +147,23 @@ export class IncomingDocumentEditor implements OnInit {
     }
 
     updateTmsArray(newItem: IncomingDocumentItemDto) {
-        this.tmsItems = [...this.tmsItems, newItem]; // ✅ triggers change detection
+        // Update local array (optional, for display or logic)
+        this.items = [...this.items, newItem];
+
+        // Update FormArray
+        const itemsFormArray = this.formGroup.get('items') as FormArray || [];
+        const newFormGroup = this.fb.group({
+            id: [newItem.id],
+            warehouseItemTypeId: [newItem.warehouseItemTypeId],
+            warehouseItemTypeTitle: [newItem.warehouseItemTypeTitle],
+            quantity: [newItem.quantity],
+            price: [newItem.price],
+            sum: [newItem.sum]
+        });
+
+        itemsFormArray.push(newFormGroup);
     }
+
 
     calculateSum(quantity: string, price: string): string {
         const q = parseFloat(quantity);

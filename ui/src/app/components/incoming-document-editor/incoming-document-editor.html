@@ -50,19 +50,31 @@
                         </p-autocomplete>
                     </div>
 
+<!--                    <div class="flex-auto flex flex-col">-->
+<!--                        <label for="warehouseId" class="mb-1 text-left">Склад</label>-->
+<!--                        <input id="warehouseId"-->
+<!--                            pInputText-->
+<!--                            [value]="formGroup.get('warehouse')?.value?.title"-->
+<!--                            readonly-->
+<!--                        />-->
+<!--                    </div>-->
+
                     <div class="flex-auto flex flex-col">
-                        <label for="warehouseId" class="mb-1 text-left">Склад</label>
-                        <input id="warehouseId"
-                            pInputText
-                            [value]="formGroup.get('warehouse')?.value?.title"
-                            readonly
-                        />
+                        <label for="warehouseId" class="mb-1 text-left" >Склад</label>
+                        <p-autocomplete [forceSelection]="true" formControlName="contract" [suggestions]="contracts" showClear="true"
+                                        (completeMethod)="completeContracts($event)" fluid placeholder="Выберите cклад"
+                                        (onClear)="clearContractSelection()" optionLabel="title"  id="warehouseId"
+                        >
+                            <ng-template let-item #item>
+                                {{item.title}}
+                            </ng-template>
+                        </p-autocomplete>
                     </div>
 
                 </div>
             </div>
 
-            <p-table [value]="tmsItems" [tableStyle]="{ 'min-width': '50rem', 'margin-top': '3rem'  }" [scrollable]="true" scrollHeight="500px" >
+            <p-table [value]="items" [tableStyle]="{ 'min-width': '50rem', 'margin-top': '3rem'  }" [scrollable]="true" scrollHeight="500px" >
                 <ng-template #header>
                     <tr>
                         <th>Наименование ТМЦ</th>
@@ -74,12 +86,12 @@
                     </tr>
                 </ng-template>
 
-                <ng-template #body let-tmcItem>
+                <ng-template #body let-items>
                     <tr>
-                        <td>{{ tmcItem.warehouseItemTypeTitle }}</td>
-                        <td>{{ tmcItem.quantity }}</td>
-                        <td>{{ tmcItem.price }}</td>
-                        <td>{{ calculateSum(tmcItem.quantity, tmcItem.price) }}</td>
+                        <td>{{ items.warehouseItemTypeTitle }}</td>
+                        <td>{{ items.quantity }}</td>
+                        <td>{{ items.price }}</td>
+                        <td>{{ calculateSum(items.quantity, items.price) }}</td>
                         <p-button icon="pi pi-trash" (onClick)="removeTmcItem()"></p-button>
 
                     </tr>

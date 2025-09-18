@@ -61,7 +61,8 @@ export class TmcItemEditor implements OnInit {
             const formValue = this.formGroup.value;
 
             const newItem = {
-                name: formValue.warehouseItemType?.title || 'Unnamed',
+                warehouseItemTypeTitle: formValue.warehouseItemType?.title,
+                warehouseItemTypeId: formValue.warehouseItemType?.id ,
                 quantity: formValue.quantity.toString(),
                 price: formValue.price.toString()
             };
