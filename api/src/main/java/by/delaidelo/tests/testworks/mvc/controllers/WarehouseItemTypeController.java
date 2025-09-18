@@ -13,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/item-types")
-@CrossOrigin("*")
 public class WarehouseItemTypeController {
     private final WarehouseItemTypeService service;
 

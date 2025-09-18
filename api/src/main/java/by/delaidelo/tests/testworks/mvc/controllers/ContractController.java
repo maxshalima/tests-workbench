@@ -13,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/contracts")
-@CrossOrigin("*")
 public class ContractController {
     private final ContractService service;
 

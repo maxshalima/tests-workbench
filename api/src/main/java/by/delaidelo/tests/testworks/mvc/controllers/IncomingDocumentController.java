@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/incoming-documents")
-@CrossOrigin("*")
 public class IncomingDocumentController {
     private final IncomingDocumentsService service;
 
