@@ -4,7 +4,7 @@ export function initializeKeycloak(keycloak: KeycloakService) {
     return () =>
         keycloak.init({
             config: {
-                url: 'http://localhost:9080', // Keycloak server URL
+                url: 'http://keycloak:9080', // Keycloak server URL
                 realm: 'jhipster',
                 clientId: 'web_app',
             },

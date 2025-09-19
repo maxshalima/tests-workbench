@@ -6,6 +6,8 @@ services:
             dockerfile: Dockerfile
         ports:
           - 8080:8080
+        networks:
+          - frontend
     ui:
         build:
             context: "../ui"
@@ -18,7 +20,8 @@ services:
             dockerfile: Dockerfile
         ports:
           - 9080:9080
-          - 9443:9443
+        networks:
+          - frontend
 
 networks:
     frontend:
